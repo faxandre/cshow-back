@@ -18,11 +18,11 @@ const Filme = database.define('filme',
             allowNull: false
         }, 
         thumb: {
-            type: Sequelize.STRING(30),
+            type: Sequelize.STRING(50),
             allowNull: false
         }, 
         imagem: {
-            type: Sequelize.STRING(30),
+            type: Sequelize.STRING(50), 
             allowNull: false
         } 
     },
