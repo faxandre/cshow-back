@@ -1,8 +1,8 @@
 const router = require('express').Router();
-const filmeController = require('./controllers/FilmeController');
+const movieController = require('./controllers/MovieController');
 
-router.all('/filme', filmeController);
-router.all('/filme/*', filmeController);
+router.all('/movie', movieController);
+router.all('/movie/*', movieController);
 //router.all('/notafiscal', notafiscalController);
 //router.all('/contrato', contratoController);
 

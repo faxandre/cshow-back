@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const database = require('../config/db');
 
-const Filme = database.define('filme', 
+const Movie = database.define('movie', 
     {
         id: {
             type: Sequelize.INTEGER,
@@ -9,26 +9,22 @@ const Filme = database.define('filme',
             allowNull: false,
             primaryKey: true
         },
-        titulo:{
+        title:{
             type: Sequelize.STRING(200),
             allowNull: false,
         }, 
-        descricao: {
+        description: {
             type: Sequelize.TEXT,
             allowNull: false
         }, 
-        thumb: {
+        img: {
             type: Sequelize.STRING(50),
             allowNull: false
-        }, 
-        imagem: {
-            type: Sequelize.STRING(50), 
-            allowNull: false
-        } 
+        }
     },
     { 
         freezeTableName: true 
     }
 );
 
-module.exports = Filme;
+module.exports = Movie;
