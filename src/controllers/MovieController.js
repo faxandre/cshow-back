@@ -1,46 +1,23 @@
 const router = require('express').Router();
 const Movie = require('../models/Movie');
 const uploadMovie = require('../util/upload');
-//const movieValidation = require('../models/validations/MovieValidation');
-const Yup = require('yup');
-
+const movieValidation = require('../models/validations/MovieValidation');
 
 /** INSERT */
 router.post('/movie', uploadMovie.single('img'), async (req,res) => {
-    //const { title, description, img } = req.body;
+    const { title, description } = req.body;
     try {
-        const movieValidation = Yup.object().shape({
-            title: Yup.string().required('Campo Título não pode está em branco'),
-            //description: Yup.string(),
-            //img: Yup.string(),
-            //img: Yup.mixed().required('Campo imagem não pode está em branco'),
-        });
-
-        console.log(await movieValidation.isValid(req.body));
-
-        if( await  movieValidation.isValid(req.body) === false ) {
+        if( await movieValidation.isValid(req.body) === false ) {
             return res.status(400).json({ erro: true, msg: 'Todos os campos são obrigatórios' });
-        }
+        }      
 
-        /*if( await movieValidation.isValid(req.body) === false ) {
-            return res.status(400).json({ erro: true, msg: 'Campos devem ser preenchidos' });
-        }*/
-
-        //movieValidation.isValid(req.body).catch(function(e) {
-        /*movieValidation.validate(req.body).catch(function(e) {
-            console.log(e);
-            return res.status(400).json({ erro: true, msg: 'xxxxxxxx!', err: e.errors });
-        });*/
-
-        return res.status(201).json({ erro: false, msg: "Filme cadastrado com sucesso!" });
-
-        /*const movie = await Movie.create({
+        const movie = await Movie.create({
             title: title,
             description: description,
             img: req.file.filename
-        });*/
-        
-        //return res.status(201).json({ erro: false, msg: "Filme cadastrado com sucesso!", movie: movie });
+        });
+
+        return res.status(201).json({ erro: false, msg: "Filme cadastrado com sucesso!", movie: movie });
     } catch (error) {
         return res.status(500).json({ erro: true, msg: "Error no Servidor!" });
     }
