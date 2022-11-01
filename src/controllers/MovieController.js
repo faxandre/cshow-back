@@ -38,7 +38,11 @@ router.get('/movie', async (req,res) => {
 router.get('/movie/:id', async (req,res) => {   
     try {
         const movie = await Movie.findByPk(req.params.id);
-        return res.status(200).json( { movie } );
+
+        if(movie)
+            return res.status(200).json( { movie } );
+        else 
+            return res.status(400).json({ erro: true, msg: 'Filme não encontrado' });
     } catch (error) {
         return res.status(500).json({ erro: true, msg: "Error no Servidor!" });
     }
