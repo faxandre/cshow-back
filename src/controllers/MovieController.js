@@ -4,12 +4,13 @@ const uploadMovie = require('../util/upload');
 const movieValidation = require('../models/validations/MovieValidation');
 
 /** INSERT */
-router.post('/movie', uploadMovie.single('img'), async (req,res) => {
+/*router.post('/movie', uploadMovie.single('img'), async (req,res) => {
     const { title, description } = req.body;
     try {
+        console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
         if( await movieValidation.isValid(req.body) === false ) {
             return res.status(400).json({ erro: true, msg: 'Todos os campos são obrigatórios' });
-        }      
+        }
 
         const movie = await Movie.create({
             title: title,
@@ -18,6 +19,46 @@ router.post('/movie', uploadMovie.single('img'), async (req,res) => {
         });
 
         return res.status(201).json({ erro: false, msg: "Filme cadastrado com sucesso!", movie: movie });
+    } catch (error) {
+        return res.status(500).json({ erro: true, msg: "Error no Servidor!" });
+    }
+});*/
+router.post('/movie', async (req,res) => {
+    const { title, description } = req.body;
+    try {
+        console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
+        if( await movieValidation.isValid(req.body) === false ) {
+            return res.status(400).json({ erro: true, msg: 'Todos os campos são obrigatórios' });
+        }
+
+        const movie = await Movie.create({
+            title: title,
+            description: description,
+            img: 'wwwwwwwwwwwwww'
+        });
+
+        return res.status(201).json({ erro: false, msg: "Filme cadastrado com sucesso!", movie: movie });
+    } catch (error) {
+        return res.status(500).json({ erro: true, msg: "Error no Servidor!" });
+    }
+});
+
+/** UPDATE */	
+router.put('/movie', uploadMovie.single('img'), async (req,res)=> {    
+    const { id, title, description } = req.body;   
+    try {
+        if( await movieValidation.isValid(req.body) === false ) {
+            return res.status(400).json({ erro: true, msg: 'Todos os campos são obrigatórios' });
+        }
+
+        const movie = await Movie.findByPk(id);
+        movie.title = title;
+        movie.description = description;
+        movie.img = req.file.filename;
+
+        const result = await movie.save();
+
+        return res.status(201).json({ erro: false, msg: "Filme alterado com sucesso!", movie: movie });
     } catch (error) {
         return res.status(500).json({ erro: true, msg: "Error no Servidor!" });
     }
@@ -43,23 +84,6 @@ router.get('/movie/:id', async (req,res) => {
             return res.status(200).json( { movie } );
         else 
             return res.status(400).json({ erro: true, msg: 'Filme não encontrado' });
-    } catch (error) {
-        return res.status(500).json({ erro: true, msg: "Error no Servidor!" });
-    }
-});
-
-/** UPDATE */	
-router.put('/movie', uploadMovie.single('img'), async (req,res)=> {    
-    const { id, title, description } = req.body;   
-    try {
-        const movie = await Movie.findByPk(id);
-        movie.title = title;
-        movie.description = description;
-        movie.img = req.file.filename;
-
-        const result = await movie.save();
-
-        return res.status(201).json( result );
     } catch (error) {
         return res.status(500).json({ erro: true, msg: "Error no Servidor!" });
     }
