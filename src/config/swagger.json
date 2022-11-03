@@ -1,0 +1,322 @@
+{
+    "openapi": "3.0.0",
+
+    "info": {
+        "title": "API's do Sistema CShow",
+        "description": "Essas são as <b>API's</b> de integração do sistema <b>CShow</b>. <br>Esse desafio foi propósto pela empresa <b>Creathus</b>.",
+        "contact": {
+            "email": "faxandre@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+
+    "servers": [
+        {
+            "url": "http://localhost:8888",
+            "description": "(DEVELOPEMENT) - LOCALHOST"
+        },
+        {   
+            "url": "https://cshow-back.herokuapp.com",
+            "description": "(PRODUCTION) - HEROKU"
+        }
+    ],
+
+    "paths": {
+        "/api/v1/movie": {
+
+            "post": {
+                "sumary": "Cadastro de filme",
+                "description": "Responsável pelo cadastro de um novo filme",
+                "tags": ["Movie"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Movie"
+                            },
+                            "examples": {
+                                "movie": {
+                                    "value": {
+                                        "title": "Rambo III - A Missão",
+                                        "description": "O ex-soldado John Rambo recusa um pedido do coronel Trautman.",
+                                        "img": "abcd.png"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Todos os campos são obrigatórios!"
+                    },
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Movie"
+                                },
+                                "examples": {
+                                    "movie": {
+                                        "value": {
+                                            "erro": false, 
+                                            "msg": "Filme cadastrado com sucesso!",
+                                            "movie":{
+                                                "id": 123,
+                                                "title": "Rambo III - A Missão",
+                                                "description": "O ex-soldado John Rambo recusa um pedido do coronel Trautman.",
+                                                "img": "abcd.png"    
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+
+            "put": {
+                "sumary": "Atualização de filme",
+                "description": "Responsável pela atualização de um filme",
+                "tags": ["Movie"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/Movie"
+                            },
+                            "examples": {
+                                "movie": {
+                                    "value": {
+                                        "erro": false, 
+                                        "msg": "Filme cadastrado com sucesso!",
+                                        "movie":{
+                                            "id": 123,
+                                            "title": "Rambo III - A Missãoooooooooooooo",
+                                            "description": "John Rambo morreu.",
+                                            "img": "abcd.png"    
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "400": {
+                        "description": "Todos os campos são obrigatórios!"
+                    },
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Movie"
+                                },
+                                "examples": {
+                                    "movie": {
+                                        "value": {
+                                            "erro": false, 
+                                            "msg": "Filme atualizado com sucesso!",
+                                            "movie":{
+                                                "id": 123,
+                                                "title": "Rambo III - A Missãoooooooooooooo",
+                                                "description": "John Rambo moreu.",
+                                                "img": "rambo3.png"    
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+
+            "get": {
+                "sumary": "Busca todos os filmes",
+                "description": "Responsável pela busca de todos os filmes cadastrdos",
+                "tags": ["Movie"],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Movie"
+                                },
+                                "examples": {
+                                    "movie": {
+                                        "value": {
+                                            "erro": false, 
+                                            "msg": "Lista de filmes",
+                                            "movies":[
+                                                {
+                                                    "id": 123,
+                                                    "title": "Rambo III - A Missão",
+                                                    "description": "O ex-soldado John Rambo recusa um pedido do coronel Trautman.",
+                                                    "img": "rambo3.png"    
+                                                },
+                                                {
+                                                    "id": 321,
+                                                    "title": "Alien - O oitavo passageiro",
+                                                    "description": "Tripulando de uma espaçonave são atacados por alieníginas.",
+                                                    "img": "alien01.png"    
+                                                }                                                 
+                                            ]
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+
+        }, 
+
+        "/api/v1/movie/{id}": {
+            "get": {
+                "sumary": "Busca um filmes pelo ID",
+                "description": "Responsável pela busca de apenas um único filmes pelo seu código",
+                "tags": ["Movie"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Informar o ID do produto para a busca"
+                    }
+                ],
+                "responses": {
+                    "400": {
+                        "content": {
+                            "application/json": {                  
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "error": {
+                                        "value": {
+                                            "erro": true, 
+                                            "msg": "Filme não encontrado!"
+                                        }
+                                    }
+                                }                                
+                            }
+                        }
+                    },
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Movie"
+                                },
+                                "examples": {
+                                    "movie": {
+                                        "value": {
+                                            "erro": false, 
+                                            "msg": "Filme encontrado!",
+                                            "movie": {
+                                                "id": 123,
+                                                "title": "Rambo III - A Missão",
+                                                "description": "O ex-soldado John Rambo recusa um pedido do coronel Trautman.",
+                                                "img": "rambo3.png"    
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+
+            "delete": {
+                "sumary": "Deleta um filme específico",
+                "description": "Responsável pela deleção de um único filme",
+                "tags": ["Movie"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "Informar o ID do produto para a deleção"
+                    }
+                ],                
+                "responses": {
+                    "400": {
+                        "content": {
+                            "application/json": {                  
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Error"
+                                },
+                                "examples": {
+                                    "error": {
+                                        "value": {
+                                            "erro": true, 
+                                            "msg": "Filme não encontrado!"
+                                        }
+                                    }
+                                }                                
+                            }
+                        }
+                    },                    
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "$ref": "#/components/schemas/Success"
+                                },
+                                "examples": {
+                                    "success": {
+                                        "value": {
+                                            "erro": false, 
+                                            "msg": "Filme deletado com sucesso!"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }            
+
+        }
+    },
+
+    "components": {
+        "schemas": {
+            "Movie": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "string" },
+                    "title": { "type": "string" },
+                    "description":  { "type": "string" },                    
+                    "img":  { "type": "string" }
+                }
+            },
+            "Error": {
+                "type": "object",
+                "properties": {
+                    "erro": { "type": "boolean" },
+                    "msg": { "type": "string" }
+                }
+            },
+            "Success": {
+                "type": "object",
+                "properties": {
+                    "erro": { "type": "boolean" },
+                    "msg": { "type": "string" }
+                }
+            }             
+        }
+    }
+
+}

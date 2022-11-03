@@ -2,9 +2,12 @@ const express = require('express');
 const routers = require('./router');
 const database = require('./config/db');
 const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerConfig = require('./config/swagger.json');
+
 const app = express();
 
-//
+//configurando o CORS
 app.use( (req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
     res.header('Access-Control-Allow-Methods', 'GET,POST,PUT,DELETE');
@@ -16,6 +19,8 @@ app.use( (req, res, next) => {
 //middleware que faz o parse da requisicao/body para em json
 app.use(express.json());
 
+//diretorio da documentacao swagger
+app.use('/api/v1/doc', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
 
 //config and connect database
 database.sync().then( () => {
@@ -23,8 +28,8 @@ database.sync().then( () => {
 });
 
 
-//apartir de agora toda requisicao iniciada com /* quem responderá será o arquivo router
-app.use('/v1', routers);
+//apartir de agora toda requisicao iniciada com /api/v1/* quem responderá será o arquivo router
+app.use('/api/v1', routers);
 
 
 

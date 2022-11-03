@@ -39,7 +39,7 @@ router.put('/movie', uploadMovie.single('img'), async (req,res)=> {
     
             const updatedMovie = await movie.save();
     
-            return res.status(201).json({ erro: false, msg: "Filme alterado com sucesso!", movie: updatedMovie });
+            return res.status(201).json({ erro: false, msg: "Filme atualizado com sucesso!", movie: updatedMovie });
         }else{
             return res.status(400).json({ erro: true, msg: 'Filme não encontrado' });
         }
@@ -53,8 +53,7 @@ router.put('/movie', uploadMovie.single('img'), async (req,res)=> {
 router.get('/movie', async (req,res) => {  
     try {
         const movies = await Movie.findAll();
-        //return res.status(200).json( movies );
-        return res.status(201).json({ erro: false, msg: "Lista de filmes!", movies: movies });
+        return res.status(200).json({ erro: false, msg: "Lista de filmes!", movies: movies });
     } catch (error) {
         return res.status(500).json({ erro: true, msg: "Error no Servidor!" });
     } 
