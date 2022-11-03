@@ -1,6 +1,6 @@
 # CSHOW
 upload/movie/*
-#.env
+.env
 
 # Logs
 logs
