@@ -1,8 +1,6 @@
 const Sequelize = require('sequelize');
 require('dotenv').config();
 
-console.log(process.env.NODE_ENV);
-
 /** 
  * MySQL HEROKU
  * STRING CONNECTION: mysql://b74010a43b9c1d:afc5aa99@us-cdbr-east-06.cleardb.net/heroku_f6661ce4fa3fa9b?reconnect=true
