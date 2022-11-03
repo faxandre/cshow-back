@@ -4,10 +4,9 @@ const uploadMovie = require('../util/upload');
 const movieValidation = require('../models/validations/MovieValidation');
 
 /** INSERT */
-/*router.post('/movie', uploadMovie.single('img'), async (req,res) => {
+router.post('/movie', uploadMovie.single('img'), async (req,res) => {
     const { title, description } = req.body;
     try {
-        console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
         if( await movieValidation.isValid(req.body) === false ) {
             return res.status(400).json({ erro: true, msg: 'Todos os campos são obrigatórios' });
         }
@@ -16,25 +15,6 @@ const movieValidation = require('../models/validations/MovieValidation');
             title: title,
             description: description,
             img: req.file.filename
-        });
-
-        return res.status(201).json({ erro: false, msg: "Filme cadastrado com sucesso!", movie: movie });
-    } catch (error) {
-        return res.status(500).json({ erro: true, msg: "Error no Servidor!" });
-    }
-});*/
-router.post('/movie', async (req,res) => {
-    const { title, description } = req.body;
-    try {
-        console.log('xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx');
-        if( await movieValidation.isValid(req.body) === false ) {
-            return res.status(400).json({ erro: true, msg: 'Todos os campos são obrigatórios' });
-        }
-
-        const movie = await Movie.create({
-            title: title,
-            description: description,
-            img: 'wwwwwwwwwwwwww'
         });
 
         return res.status(201).json({ erro: false, msg: "Filme cadastrado com sucesso!", movie: movie });
@@ -52,13 +32,18 @@ router.put('/movie', uploadMovie.single('img'), async (req,res)=> {
         }
 
         const movie = await Movie.findByPk(id);
-        movie.title = title;
-        movie.description = description;
-        movie.img = req.file.filename;
+        if(movie){
+            movie.title = title;
+            movie.description = description;
+            movie.img = req.file.filename;
+    
+            const updatedMovie = await movie.save();
+    
+            return res.status(201).json({ erro: false, msg: "Filme alterado com sucesso!", movie: updatedMovie });
+        }else{
+            return res.status(400).json({ erro: true, msg: 'Filme não encontrado' });
+        }
 
-        const result = await movie.save();
-
-        return res.status(201).json({ erro: false, msg: "Filme alterado com sucesso!", movie: movie });
     } catch (error) {
         return res.status(500).json({ erro: true, msg: "Error no Servidor!" });
     }
