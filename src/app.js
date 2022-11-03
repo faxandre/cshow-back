@@ -24,7 +24,7 @@ database.sync().then( () => {
 
 
 //apartir de agora toda requisicao iniciada com /* quem responderá será o arquivo router
-app.use('/', routers);
+app.use('/v1', routers);
 
 
 
