@@ -1,10 +1,9 @@
 const Sequelize = require('sequelize');
+require('dotenv').config();
 
-//if(process.env.NODE_ENV !== 'production') {
-    require('dotenv').config();
-//}
+console.log(process.env.NODE_ENV);
 
-/**
+/** 
  * MySQL HEROKU
  * STRING CONNECTION: mysql://b74010a43b9c1d:afc5aa99@us-cdbr-east-06.cleardb.net/heroku_f6661ce4fa3fa9b?reconnect=true
  * STRING CONNECTION: [database type]://[username]:[password]@[host]:[port]/[database name]
@@ -22,15 +21,7 @@ const sequelize = new Sequelize(
         host: process.env.DB_HOST,
     }
 );
-/*const sequelize = new Sequelize(
-    'heroku_f6661ce4fa3fa9b',//database
-    'b74010a43b9c1d',//user
-    'afc5aa99',//pass
-    {
-        dialect: 'mysql',//dialeto
-        host: 'us-cdbr-east-06.cleardb.net',
-    }
-);*/
+
 //LOCAL MYSQL
 /*const sequelize = new Sequelize(
     'cshow',//database
