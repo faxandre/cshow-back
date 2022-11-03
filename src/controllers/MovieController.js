@@ -53,7 +53,8 @@ router.put('/movie', uploadMovie.single('img'), async (req,res)=> {
 router.get('/movie', async (req,res) => {  
     try {
         const movies = await Movie.findAll();
-        return res.status(200).json( movies );
+        //return res.status(200).json( movies );
+        return res.status(201).json({ erro: false, msg: "Lista de filmes!", movies: movies });
     } catch (error) {
         return res.status(500).json({ erro: true, msg: "Error no Servidor!" });
     } 
@@ -66,7 +67,7 @@ router.get('/movie/:id', async (req,res) => {
         const movie = await Movie.findByPk(req.params.id);
 
         if(movie)
-            return res.status(200).json( { movie } );
+            return res.status(200).json( { erro: false, msg: "Filme encontrado!", movie:movie } );
         else 
             return res.status(400).json({ erro: true, msg: 'Filme não encontrado' });
     } catch (error) {
