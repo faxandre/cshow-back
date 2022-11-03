@@ -13,7 +13,7 @@ if(process.env.NODE_ENV !== 'production') {
  * PASS: afc5aa99
  * DATABASE: heroku_f6661ce4fa3fa9b
  * */
-const sequelize = new Sequelize(
+/*const sequelize = new Sequelize(
     process.env.DB_SCHEMA,//database
     process.env.DB_USER,//user
     process.env.DB_PASS,//pass
@@ -22,17 +22,17 @@ const sequelize = new Sequelize(
         host: process.env.DB_HOST,
         //port: process.env.DB_PORT
     }
-);
-/*const sequelize = new Sequelize(
+);*/
+const sequelize = new Sequelize(
     'heroku_f6661ce4fa3fa9b',//database
     'b74010a43b9c1d',//user
     'afc5aa99',//pass
     {
         dialect: 'mysql',//dialeto
         host: 'us-cdbr-east-06.cleardb.net',
-        //port: 3306
+        port: 3306
     }
-);*/
+);
 //LOCAL MYSQL
 /*const sequelize = new Sequelize(
     'cshow',//database
