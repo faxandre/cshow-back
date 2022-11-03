@@ -1,12 +1,6 @@
 # CSHOW
 upload/movie/*
-.env
-.env.example
-.env.local
-.env.staging
-*.env
-src/.env
-src/*.env
+#.env
 
 # Logs
 logs
