@@ -1,33 +1,33 @@
-# cshow-back
+## cshow-back
 CSHOW - Backend de uma app de cadastro e listagem de filmes (NODE 16.14.0)
-<br><br>
+<br>
 
-# Clonando o Projeto 
+## Clonando o Projeto 
 ```sh
 git clone https://github.com/faxandre/cshow-back.git
 ```
-<br><br>
+<br>
 
 
-# Instalando as Dependências 
+## Instalando as Dependências 
 ```sh
 yarn install
 ```
-<br><br>
+<br>
 
-# Executar o Projeto Localmente 
+## Executar o Projeto Localmente 
 ```sh
 yarn dev
 ```
-<br><br>
+<br>
 
-# DEV - URL Local
+## DEV - URL Local
 http://localhost:8888/api/v1/
-<br><br>
+<br>
 
-# PROD - URL Heroku
+## PROD - URL Heroku
 https://cshow-back.herokuapp.com/api/v1/
-<br><br>
+<br>
 
 # Instalando Libs Individuais se Necessário
 ## Dependência do projeto
@@ -47,7 +47,7 @@ yarn add nodemon -D
 yarn add sequelize-cli -D
 yarn add @types/swagger-ui-express -D
 ```
-<br><br>
+<br>
 
 
 <h3 align="left">Stack</h3>
