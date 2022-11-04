@@ -30,9 +30,9 @@
                 "tags": ["Movie"],
                 "requestBody": {
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/Movie"
+                                "$ref": "#/components/schemas/MovieUpload"
                             },
                             "examples": {
                                 "movie": {
@@ -83,9 +83,9 @@
                 "tags": ["Movie"],
                 "requestBody": {
                     "content": {
-                        "application/json": {
+                        "multipart/form-data": {
                             "schema": {
-                                "$ref": "#/components/schemas/Movie"
+                                "$ref": "#/components/schemas/MovieUpload2"
                             },
                             "examples": {
                                 "movie": {
@@ -302,6 +302,23 @@
                     "img":  { "type": "string" }
                 }
             },
+            "MovieUpload": {
+                "type": "object",
+                "properties": {
+                    "title": { "type": "string" },
+                    "description":  { "type": "string" },                    
+                    "img":  { "type": "string", "format": "binary" }
+                }
+            }, 
+            "MovieUpload2": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "string" },
+                    "title": { "type": "string" },
+                    "description":  { "type": "string" },                    
+                    "img":  { "type": "string", "format": "binary" }
+                }
+            },                        
             "Error": {
                 "type": "object",
                 "properties": {
